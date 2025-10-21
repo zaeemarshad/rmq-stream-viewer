@@ -9,7 +9,7 @@ A modern web-based UI for browsing and inspecting RabbitMQ Streams. This tool pr
 - 📨 **Message Browsing**: Non-destructive message reading with offset-based navigation
 - 🏷️ **AMQP Properties**: Full visibility into message properties and metadata
 - 🎨 **Modern UI**: Clean, responsive interface built with React and TailwindCSS
-- 🐳 **Containerized**: Easy deployment with Docker
+- 🐳 **Containerised**: Easy deployment with Docker
 - ⚙️ **Multi-Connection**: Support for multiple RabbitMQ hosts and vhosts
 
 ## Architecture
@@ -22,8 +22,21 @@ A modern web-based UI for browsing and inspecting RabbitMQ Streams. This tool pr
 
 - Go 1.21+ (for local development)
 - Node.js 20+ (for frontend development)
-- Docker & Docker Compose (for containerized deployment)
+- Docker & Docker Compose (for containerised deployment)
 - RabbitMQ server with streams plugin enabled
+
+### Network Requirements
+
+The following ports must be accessible on your RabbitMQ server:
+
+| Port  | Protocol | Purpose                      | Required |
+| ----- | -------- | ---------------------------- | -------- |
+| 5672  | AMQP     | Standard AMQP connections    | Yes      |
+| 5671  | AMQPS    | AMQP over TLS/SSL            | Optional |
+| 5552  | Stream   | RabbitMQ Stream Protocol     | Yes      |
+| 15672 | HTTP     | Management API & Web Console | Yes      |
+
+**Note:** If your RabbitMQ server uses custom ports, adjust the configuration accordingly in `config.yaml`.
 
 ## Quick Start
 
@@ -99,11 +112,12 @@ connections:
   - `id`: Unique identifier for the connection
   - `name`: Display name
   - `host`: RabbitMQ server hostname
-  - `port`: AMQP port (usually 5672)
+  - `port`: AMQP port (default: 5672, or 5671 for TLS)
   - `vhost`: Virtual host (use "/" for default)
   - `username`: RabbitMQ username
   - `password`: RabbitMQ password
-  - `http_port`: Management API port (usually 15672)
+  - `http_port`: Management API port (default: 15672)
+  - `stream_port`: RabbitMQ Stream Protocol port (default: 5552)
 
 ## Testing
 

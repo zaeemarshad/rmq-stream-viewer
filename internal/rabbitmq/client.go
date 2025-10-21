@@ -571,12 +571,18 @@ func (c *Connection) ReadMessagesFromVHost(ctx context.Context, vhost, streamNam
 				props["footer"] = footer
 			}
 
-			msg := Message{
-				Offset:     uint64(consumerContext.Consumer.GetOffset()),
-				Timestamp:  time.Now(),
-				Data:       message.GetData(),
-				Properties: props,
-			}
+		// Use creation time if available, otherwise use current time
+		timestamp := time.Now()
+		if message.Properties != nil && !message.Properties.CreationTime.IsZero() {
+			timestamp = message.Properties.CreationTime
+		}
+
+		msg := Message{
+			Offset:     uint64(consumerContext.Consumer.GetOffset()),
+			Timestamp:  timestamp,
+			Data:       message.GetData(),
+			Properties: props,
+		}
 
 			messages = append(messages, msg)
 
