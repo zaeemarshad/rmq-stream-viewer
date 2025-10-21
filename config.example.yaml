@@ -1,0 +1,37 @@
+# RabbitMQ Stream Viewer Configuration
+
+server:
+  port: 8080
+
+connections:
+  # Example: Local development instance
+  - id: dev
+    name: Development
+    host: localhost
+    port: 5672
+    vhost: /
+    username: guest
+    password: guest
+    http_port: 15672
+    stream_port: 5552  # Stream protocol port (defaults to 5552 if not specified)
+
+  # Example: Production instance with custom vhost
+  - id: prod
+    name: Production
+    host: rabbitmq.example.com
+    port: 5672
+    vhost: /production
+    username: admin
+    password: secret
+    http_port: 15672
+
+  # Example: Staging instance
+  - id: staging
+    name: Staging
+    host: rabbitmq-staging.example.com
+    port: 5672
+    vhost: /staging
+    username: admin
+    password: secret
+    http_port: 15672
+

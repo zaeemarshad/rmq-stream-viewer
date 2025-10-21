@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+connections:
+  - id: dev
+    name: Development
+    host: localhost
+    port: 5672
+    vhost: /
+    username: root
+    password: magic
+    http_port: 15672
+    stream_port: 5552
+
